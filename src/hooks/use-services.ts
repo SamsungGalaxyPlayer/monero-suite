@@ -19,6 +19,7 @@ export interface ServiceMap {
 }
 
 export const useServices = () => {
+  const [isDocker, setIsDocker] = useState(true);
   const [isMoneroPublicNode, setIsMoneroPublicNode] = useState(true);
   const [isPrunedNode, setIsPrunedNode] = useState(true);
   const [p2PoolMode, setP2PoolMode] = useState("none");
@@ -259,6 +260,8 @@ sudo ufw allow 3333/tcp`
   return {
     services,
     stateFunctions: {
+      isDocker,
+      setIsDocker,
       isMoneroPublicNode,
       setIsMoneroPublicNode,
       isPrunedNode,

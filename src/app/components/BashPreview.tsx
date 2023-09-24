@@ -2,15 +2,21 @@ import type { Service } from "@/hooks/use-services";
 import { CodeHighlightTabs } from "@mantine/code-highlight";
 import { SiGnubash } from "react-icons/si";
 
-const baseBashCommands = [
-  "sudo apt-get update && sudo apt-get upgrade -y",
-  "sudo apt-get install -y ufw curl",
-  "",
+const installDocker = [
   "# Install Docker",
   "curl -fsSL https://get.docker.com -o get-docker.sh",
   "sudo sh get-docker.sh",
   "sudo usermod -aG docker $USER",
   "su - $USER",
+];
+
+const installPodman = ["# Install Podman", "sudo apt-get install -y podman"];
+
+const baseBashCommands = (installContainerSoftware: string[]) => [
+  "sudo apt-get update && sudo apt-get upgrade -y",
+  "sudo apt-get install -y ufw curl",
+  "",
+  installContainerSoftware,
   "",
   "# Deny all non-explicitly allowed ports",
   "sudo ufw default deny incoming",
@@ -20,22 +26,23 @@ const baseBashCommands = [
   "sudo ufw allow ssh",
 ];
 
-const finalBashCommands = [
+const finalBashCommands = (isDocker: boolean) => [
   "# Enable UFW",
   "sudo ufw enable",
   "",
   "# change directory to where the docker-compose.yml file is located",
   "cd ~/monero-suite",
   "# finally, start the containers with:",
-  "docker-compose up -d",
+  isDocker ? "docker-compose up -d" : "podman-compose up -d",
 ];
 
 interface BashPreviewProps {
+  isDocker: boolean;
   services: Service[];
 }
 
-const BashPreview = ({ services }: BashPreviewProps) => {
-  // replance two or more newlines with one newline
+const BashPreview = ({ isDocker, services }: BashPreviewProps) => {
+  // replace two or more newlines with one newline
   const serviceBashCommands = services
     .filter((service) => service.bash)
     .map((service) => service.bash)
@@ -43,7 +50,7 @@ const BashPreview = ({ services }: BashPreviewProps) => {
     .replace(/\n{2,}/g, "\n\n");
 
   const bashCommands = [
-    ...baseBashCommands,
+    ...baseBashCommands(isDocker ? installDocker : installPodman),
     serviceBashCommands,
     ...finalBashCommands,
   ].join("\n");

@@ -9,6 +9,7 @@ import {
   Text,
 } from "@mantine/core";
 import ExplainingLabel from "./ExplainingLabel";
+import Image from "next/image";
 
 interface SelectionProps {
   services: ServiceMap;
@@ -17,6 +18,8 @@ interface SelectionProps {
 
 const Selection = ({ services, stateFunctions }: SelectionProps) => {
   const {
+    isDocker,
+    setIsDocker,
     isMoneroPublicNode,
     setIsMoneroPublicNode,
     isPrunedNode,
@@ -57,6 +60,28 @@ const Selection = ({ services, stateFunctions }: SelectionProps) => {
         },
       }}
     >
+      <Switch
+        checked={isDocker}
+        label={
+          <Image
+            src={isDocker ? "/docker-logo.png" : "/podman-logo.webp"}
+            alt={isDocker ? "Docker logo" : "Podman logo"}
+            width={32}
+            height={32}
+          />
+        }
+        labelPosition="left"
+        onChange={(event) => setIsDocker(event.currentTarget.checked)}
+        onLabel="Docker"
+        offLabel="Podman"
+        size="lg"
+        styles={{
+          track: {
+            width: "70px",
+          },
+        }}
+      />
+
       <Switch
         checked={isMoneroPublicNode}
         label={
