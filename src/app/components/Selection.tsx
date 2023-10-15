@@ -383,9 +383,9 @@ const Selection = ({ services, stateFunctions }: SelectionProps) => {
         </Accordion.Panel>
       </Accordion.Item>
 
-      <Accordion.Item value="moneroblock">
+      <Accordion.Item value="block-explorer">
         <Accordion.Control>
-          <Text size="lg">Moneroblock - block explorer</Text>
+          <Text size="lg">Block explorer</Text>
         </Accordion.Control>
         <Accordion.Panel styles={panelStyles}>
           <Text size="sm">{services["moneroblock"].description}</Text>
@@ -428,6 +428,18 @@ const Selection = ({ services, stateFunctions }: SelectionProps) => {
               />
             </Input.Wrapper>
           )}
+          <Text size="sm">
+            {services["onion-monero-blockchain-explorer"].description}
+          </Text>
+          <Checkbox
+            checked={isOnionMoneroBlockchainExplorer}
+            label="Onion Monero Blockchain Explorer"
+            labelPosition="left"
+            size="lg"
+            onChange={(event) =>
+              setIsOnionMoneroBlockchainExplorer(event.currentTarget.checked)
+            }
+          />
         </Accordion.Panel>
       </Accordion.Item>
 

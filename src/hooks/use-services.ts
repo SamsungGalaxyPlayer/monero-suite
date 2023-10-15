@@ -53,7 +53,7 @@ export const useServices = () => {
   const [
     onionMoneroBlockchainExplorerDomain,
     setOnionMoneroBlockchainExplorerDomain,
-  ] = useState("");
+  ] = useState("onionexplorer.monerosuite.org");
   const [isMonitoring, setIsMonitoring] = useState(false);
   const [grafanaDomain, setGrafanaDomain] = useState("grafana.monerosuite.org");
   const [isAutoheal, setIsAutoheal] = useState(false);
