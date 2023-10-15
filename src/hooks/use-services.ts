@@ -346,8 +346,8 @@ sudo ufw allow 3333/tcp`
           checked: isOnionMoneroBlockchainExplorer,
           required: false,
           code: {
-            onionMoneroBlockchainExplorer: {
-              image: "vdo1138/xmrblocks:latest",
+            "onion-monero-blockchain-explorer": {
+              image: "ghcr.io/moneroexamples/xmrblocks:latest",
               restart: "unless-stopped",
               container_name: "onion-monero-blockchain-explorer",
               ports: ["127.0.0.1:8081:8081"],
